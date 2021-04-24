@@ -20,6 +20,10 @@ use App\Models\rooms;
 //MobilHotelRoutes
 Route::post('/MHlogin', [RoomController::class,'login']);
 
+Route::get('/', function () {
+    return view('greeting', ['name' => 'James']);
+});
+
 
 //Public Routes
 Route::post('/register', [AuthController::class,'register']);

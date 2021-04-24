@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use \UxWeb\SweetAlert\SweetAlertServiceProvider;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*Route::post('/home', function () {
+    return view('home', ['name' => 'James']);
+})*/
+
+Route::post('/home',[AuthController::class,'login']);
+
+/*Route::get('/',function (){
+    return view('login');
+})->name("deneme");*/
+
+Route::get('/{param?}', function ($param = 'ok') {
+    return view('login',['status'=>$param]);
+})->name("login");
+

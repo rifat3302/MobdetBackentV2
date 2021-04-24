@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Testing\Fluent\Concerns\Has;
+
 
 class AuthController extends Controller
 {
@@ -53,9 +53,8 @@ class AuthController extends Controller
         $user = User::where('username',$field['username'])->first();
 
         if(!$user || !Hash::check($field['password'],$user->password)){
-            return response([
-              'message' => 'Bad creds'
-            ],401);
+
+           return redirect()->route("login",['param'=>'fail']);
         }
 
         $token = $user->createToken('myapptoken')->plainTextToken;
@@ -64,6 +63,7 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token
         ];
+        return view('home',$response);
 
         return response($response,201);
 
@@ -76,8 +76,32 @@ class AuthController extends Controller
         ];
     }
 
-    public function test(){
-        return "Şükrü"   ;
+    public function loginMD(Request $request){
+
+        $field  = $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string'
+        ]);
+
+        $user = User::where('username',$field['username'])->first();
+
+        if(!$user || !Hash::check($field['password'],$user->password)){
+            /* return response([
+               'message' => 'Bad creds'
+             ],401);*/
+            return redirect()->route("login",['param'=>'fail']);
+        }
+
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+        return view('home');
+
+        return response($response,201);
+
     }
 
 }

@@ -6,9 +6,10 @@
         <serverdata>
           <mappings>
             <mapping deploy="/mobdet" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/public_html/mobdet" local="$PROJECT_DIR$/public" web="/public_html/mobdet" />
           </mappings>
           <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/public" />
+            <excludedPath local="true" path="$PROJECT_DIR$/public/index.php" />
           </excludedPaths>
         </serverdata>
       </paths>
