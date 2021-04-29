@@ -205,7 +205,8 @@
             var day  = dateEntry.substring(8,10);
 
             var dateEntryNewString = day + "/" + month + "/" + year;
-            var dateEntryNowString = nowDate.getDate() + "/" + nowDate.getDay() + "/" + nowDate.getFullYear();
+            var dateEntryNowString = nowDate.getDate() + "/" + (nowDate.getMonth()+1) + "/" + nowDate.getFullYear();
+            debugger;
 
             var dateEntryNew = Date.parse(dateEntryNewString);
             var dateEntryNow = Date.parse(dateEntryNowString);
@@ -282,7 +283,7 @@
                         buttons: true,
                         dangerMode: true,
                     }).then(function() {
-                        window.location.href = "/mobdet";
+                       alert("deneme")
                     });
 
 
