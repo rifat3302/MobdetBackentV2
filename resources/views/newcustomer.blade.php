@@ -1,5 +1,6 @@
 @include('header')
 @include('navigation')
+
         <!-- page content -->
         <div class="right_col" role="main">
             <div class="">
@@ -199,14 +200,14 @@
         if($("#dateEntry").val()!=""){
             var nowDate = new Date();
             var dateEntry = $("#dateEntry").val();
-            debugger;
+
             var year  = dateEntry.substring(0,4);
             var month  = dateEntry.substring(5,7);
             var day  = dateEntry.substring(8,10);
 
             var dateEntryNewString = day + "/" + month + "/" + year;
             var dateEntryNowString = nowDate.getDate() + "/" + (nowDate.getMonth()+1) + "/" + nowDate.getFullYear();
-            debugger;
+
 
             var dateEntryNew = Date.parse(dateEntryNewString);
             var dateEntryNow = Date.parse(dateEntryNowString);
@@ -222,12 +223,12 @@
         if($("#dateExit").val()!=""){
 
             var dateExit = $("#dateExit").val();
-            debugger;
+
             var year  = dateExit.substring(0,4);
             var month  = dateExit.substring(5,7);
             var day  = dateExit.substring(8,10);
 
-            var dateExitNewString = day + "/" + month + "/" + year;
+            var dateExitNewString = month + "/" + day + "/" + year;
 
 
             var dateExitNew = Date.parse(dateExitNewString);
@@ -250,7 +251,7 @@
                }
            ]
             if($( "[name=\"customerCount\"] option:selected" ).text()==2){
-                debugger;
+
                 var newPerson =  {
                         "tc" : $( "#tc2").val(),
                         "name" :  $( "#name2" ).val(),
@@ -260,7 +261,7 @@
 
                 person.push(newPerson)
             }
-            debugger;
+
             $.ajax({
                 method: "POST",
                 url: "newCustomerAdd",
@@ -274,21 +275,26 @@
                     "amount": $( "#amount" ).val(),
                 }
             }).done(function( msg ) {
-                if(msg.error == "ok"){
-                    debugger
+                if(msg.message == "ok"){
+
                     swal({
-                        title: 'Error',
-                        text: 'Username or Password is wrong',
-                        icon: "error",
-                        buttons: true,
-                        dangerMode: true,
+                        title: "Success!",
+                        text: "New customer added",
+                        icon: "success",
                     }).then(function() {
-                       alert("deneme")
+                        window.location.href = "/dashboard";
                     });
 
 
                 }else{
 
+                    swal({
+                        title: 'Error',
+                        text: 'Couldn\'t Add Record!',
+                        icon: "error",
+                        buttons: true,
+                        dangerMode: true,
+                    });
                 }
             });
         }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\DashboadController;
 
 use \UxWeb\SweetAlert\SweetAlertServiceProvider;
 
@@ -26,6 +27,8 @@ use \UxWeb\SweetAlert\SweetAlertServiceProvider;
 
 
 Route::post('/home',[AuthController::class,'login']);
+
+Route::get('/dashboard' ,[DashboadController::class,'index']);
 
 Route::get('/newCustommer',function (){
     $rooms = (new RoomController())->getAvaibleRoom();

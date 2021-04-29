@@ -56,25 +56,14 @@ class AuthController extends Controller
         if(!$user || !Hash::check($field['password'],$user->password)){
 
            return redirect()->route("login",['param'=>'fail']);
+        }else{
+            $token = $user->createToken('myapptoken')->plainTextToken;
+
+            return redirect()->action(
+                [DashboadController::class, 'index']
+            );
+
         }
-
-        $token = $user->createToken('myapptoken')->plainTextToken;
-        $dashBoardHelper = new DashboardHelpers();
-        $occupancyRates = $dashBoardHelper->getOccupancyRates();
-        $wheatherData = $dashBoardHelper->getWeeklyWheather();
-        $currency = $dashBoardHelper->getCurrency();
-
-        $response = [
-            'user' => $user,
-            'wheatherData' =>$wheatherData,
-            'currency' => $currency,
-            'occupancyRates'=>$occupancyRates,
-            'token' => $token
-
-        ];
-        return view('home',$response);
-
-        return response($response,201);
 
     }
 
