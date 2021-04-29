@@ -29,4 +29,12 @@ class RoomController extends Controller
         ];
         return response($response,201);
     }
+
+    public function getAvaibleRoom(){
+
+        return rooms::where('isClean',true)
+            ->where('isBook',false)
+            ->where('isActive',true)->pluck('room_number')->toArray();
+
+    }
 }

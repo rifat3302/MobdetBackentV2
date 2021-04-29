@@ -2,7 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\RoomController;
+
 use \UxWeb\SweetAlert\SweetAlertServiceProvider;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +23,18 @@ use \UxWeb\SweetAlert\SweetAlertServiceProvider;
     return view('home', ['name' => 'James']);
 })*/
 
+
+
 Route::post('/home',[AuthController::class,'login']);
 
-/*Route::get('/',function (){
-    return view('login');
-})->name("deneme");*/
+Route::get('/newCustommer',function (){
+    $rooms = (new RoomController())->getAvaibleRoom();
+    return view('newcustomer',['rooms'=>$rooms]);
+});
+Route::post('/newCustomerAdd',[CustomerController::class,'newCustomerAdd']);
+
+
+
 
 Route::get('/{param?}', function ($param = 'ok') {
     return view('login',['status'=>$param]);

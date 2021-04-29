@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\DashboardHelpers;
 
 
 class AuthController extends Controller
@@ -58,10 +59,18 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('myapptoken')->plainTextToken;
+        $dashBoardHelper = new DashboardHelpers();
+        $occupancyRates = $dashBoardHelper->getOccupancyRates();
+        $wheatherData = $dashBoardHelper->getWeeklyWheather();
+        $currency = $dashBoardHelper->getCurrency();
 
         $response = [
             'user' => $user,
+            'wheatherData' =>$wheatherData,
+            'currency' => $currency,
+            'occupancyRates'=>$occupancyRates,
             'token' => $token
+
         ];
         return view('home',$response);
 
@@ -102,6 +111,9 @@ class AuthController extends Controller
 
         return response($response,201);
 
+    }
+    public function test(){
+        return "selam";
     }
 
 }

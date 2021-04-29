@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use \App\Http\Controllers\RoomController;
+use \App\Http\Controllers\HelpersController;
 use App\Models\rooms;
 
 /*
@@ -23,6 +24,9 @@ Route::post('/MHlogin', [RoomController::class,'login']);
 Route::get('/', function () {
     return view('greeting', ['name' => 'James']);
 });
+
+//Hepler Route
+Route::get('/GC', [HelpersController::class,'getCurrency']);
 
 
 //Public Routes

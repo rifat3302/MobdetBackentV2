@@ -13,8 +13,8 @@ class Rooms extends Migration
      */
     public function up()
     {
-        Schema::table('rooms', function (Blueprint $table) {
-        /*    $table->id();
+        Schema::create('rooms', function (Blueprint $table) {
+            $table->id();
             $table->integer('user_id')->nullable();
             $table->integer('room_number')->nullable();
             $table->string('qr_key')->nullable();
@@ -23,8 +23,8 @@ class Rooms extends Migration
             $table->boolean("isBook")->nullable();
             $table->boolean("isActive")->nullable();
             $table->integer("guest_count")->nullable();
-            $table->string('note',250)->nullable();*/
-            $table->integer('guest_count')->nullable()->after('note');
+            $table->string('note',250)->nullable();
+
         });
     }
 
@@ -35,6 +35,6 @@ class Rooms extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rooms');
+        //Schema::dropIfExists('rooms');
     }
 }

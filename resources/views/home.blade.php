@@ -1,100 +1,5 @@
-<!DOCTYPE html>
-<html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{asset("images/logo.png")}}" type="image/ico" />
-
-    <title>Mobil Hotel</title>
-    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
-
-    <!-- Bootstrap -->
-     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" >
-    <!-- Font Awesome -->
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet"  >
-    <!-- NProgress -->
-    <link href="{{ asset('css/nprogress.css') }}" rel="stylesheet" type="text/css" >
-    <!-- iCheck -->
-    <link href="{{ asset('css/green.css') }}" rel="stylesheet" type="text/css" >
-    <!-- bootstrap-progressbar -->
-    <link href="{{ asset('css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet" type="text/css" >
-    <!-- JQVMap -->
-    <link href="{{ asset('css/jqvmap.min.css') }}" rel="stylesheet" type="text/css" >
-    <!-- bootstrap-daterangepicker -->
-    <link href="{{ asset('css/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet" type="text/css" >
-
-    <!-- Custom Theme Style -->
-    <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet" type="text/css" >
-</head>
-<body class="nav-md">
-<div class="container body">
-    <div class="main_container">
-        <div class="col-md-3 left_col">
-            <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                    <a href="" class="site_title"><img src="{{asset('images/logo.png')}}" height="30" width="30"> <span>Mobil Hotel Admin</span></a>
-                </div>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-
-
-                        <ul class="nav side-menu">
-                            <li>
-                                <a><i class="fa fa-home"></i> Home</a>
-                            </li>
-                            <li><a><i class="fa fa-user-plus"></i> New Customer</a>
-                            </li>
-                            <li>
-                                <a><i class="fa fa-bed"></i> Rooms</a>
-                            </li>
-                            <li>
-                                <a><i class="fa fa-users"></i> Users </a>
-                            </li>
-                            <li>
-                                <a><i class="fa fa-cutlery"></i> Orders </a>
-                            </li>
-                            <li>
-                                <a><i class="fa fa-bell-o"></i>Wake-up Service</a>
-                            </li>
-                            <li>
-                                <a><i class="fa fa-taxi"></i>Taxi Call Service</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-                <!-- /sidebar menu -->
-
-                <!-- /menu footer buttons -->
-                <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                    </a>
-                </div>
-                <!-- /menu footer buttons -->
-            </div>
-        </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <div class="nav toggle">
-                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
-            </div>
-        </div>
-        <!-- /top navigation -->
-
+@include('header')
+@include('navigation')
         <!-- page content -->
         <div class="right_col" role="main">
             <!-- top tiles -->
@@ -148,22 +53,24 @@
                                     <div class="panel panel-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-xs-4">
-                                                <span class="chart" data-percent="86">
+                                                <span class="chart" data-percent="{{$occupancyRates['pool']['percent']}}">
                                                      <span class="percent"></span>
                                                 </span>
-                                                <div class="d-flex justify-content-center">Pool</div>
+                                                <div class="d-flex justify-content-center">Pool &nbsp;<span STYLE="font-weight:bold"> {{ $occupancyRates['pool']['ca'] }}</span>|<span>{{ $occupancyRates['pool']['co'] }}</span></div>
                                             </div>
                                             <div class="col-xs-4">
-                                                <span class="chart" data-percent="73">
+                                                <span class="chart" data-percent="{{$occupancyRates['pub']['percent']}}">
                                                          <span class="percent"></span>
                                                 </span>
-                                                <div class="d-flex justify-content-center">Pub</div>
+                                                <div class="d-flex justify-content-center">Pub&nbsp;<span STYLE="font-weight:bold"> {{ $occupancyRates['pub']['ca'] }}</span>|<span>{{ $occupancyRates['pub']['co'] }}</span></div>
+
                                             </div>
                                             <div class="col-xs-4">
-                                                <span class="chart" data-percent="60">
+                                                <span class="chart" data-percent="{{$occupancyRates['sauna']['percent']}}">
                                                      <span class="percent"></span>
                                                 </span>
-                                                <div class="d-flex justify-content-center">Sauna</div>
+                                                <div class="d-flex justify-content-center">Sauna&nbsp;<span STYLE="font-weight:bold"> {{ $occupancyRates['sauna']['ca'] }}</span>|<span>{{ $occupancyRates['sauna']['co'] }}</span></div>
+
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -176,22 +83,25 @@
 
                                              <div class="row d-flex justify-content-between">
                                             <div class="col-xs-4">
-                                                 <span class="chart" data-percent="86">
+                                                 <span class="chart" data-percent="{{$occupancyRates['restaurant']['percent']}}">
                                                     <span class="percent"></span>
                                                  </span>
-                                                <div class="d-flex justify-content-center">Restaurant</div>
+                                                <div class="d-flex justify-content-center">Restaurant&nbsp;<span STYLE="font-weight:bold"> {{ $occupancyRates['restaurant']['ca'] }}</span>|<span>{{ $occupancyRates['restaurant']['co'] }}</span></div>
+
                                             </div>
                                             <div class="col-xs-4">
-                                                <span class="chart" data-percent="73">
+                                                <span class="chart" data-percent="{{$occupancyRates['gym']['percent']}}">
                                                     <span class="percent"></span>
                                                 </span>
-                                                <div class="d-flex justify-content-center">Gym</div>
+                                                <div class="d-flex justify-content-center">Gym &nbsp;<span STYLE="font-weight:bold"> {{ $occupancyRates['gym']['ca'] }}</span>|<span>{{ $occupancyRates['gym']['co'] }}</span></div>
+
                                             </div>
                                             <div class="col-xs-4">
-                                                 <span class="chart" data-percent="60">
+                                                 <span class="chart" data-percent="{{$occupancyRates['hotel']['percent']}}">
                                                      <span class="percent"></span>
                                                  </span>
-                                                <div class="d-flex justify-content-center">Otel</div>
+                                                <div class="d-flex justify-content-center">Otel&nbsp;<span STYLE="font-weight:bold"> {{ $occupancyRates['hotel']['ca'] }}</span>|<span>{{ $occupancyRates['hotel']['co'] }}</span></div>
+
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -223,8 +133,7 @@
                             <div class="x_content">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="temperature"><b>Monday</b>, 07:30 AM
-                                            <span>F</span>
+                                        <div class="temperature"><b>{{$wheatherData['Day6']['Day']}}</b>, {{$wheatherData['Day6']['Hour']}}
                                             <span><b>C</b></span>
                                         </div>
                                     </div>
@@ -232,73 +141,76 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="weather-icon">
-                                            <canvas height="84" width="84" id="partly-cloudy-day"></canvas>
+                                            <img src="{{asset('images/'.$wheatherData['Day6']['imagePath'])}}" width="84px" height="84px">
                                         </div>
                                     </div>
                                     <div class="col-sm-8">
                                         <div class="weather-text">
-                                            <h2>Texas <br><i>Partly Cloudy Day</i></h2>
+                                            <h2>{{$wheatherData['Day6']['location']}}<br><i>Partly Cloudy Day</i></h2>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="weather-text pull-right">
-                                        <h3 class="degrees">23</h3>
+                                        <h3 class="degrees">{{ $wheatherData['Day6']['temperature'] }}</h3>
                                     </div>
                                 </div>
 
                                 <div class="clearfix"></div>
 
-                                <div class="row weather-days">
+                                <div class="row weather-days d-flex justify-content-between">
+
                                     <div class="col-sm-2">
                                         <div class="daily-weather">
-                                            <h2 class="day">Mon</h2>
-                                            <h3 class="degrees">25</h3>
-                                            <canvas id="clear-day" width="32" height="32"></canvas>
-                                            <h5>15 <i>km/h</i></h5>
+                                            <h2 class="day">{{ $wheatherData['Day1']['Day'] }}</h2>
+                                            <h4 class="degrees"><i class="fa fa-arrow-down" aria-hidden="true"></i>{{ $wheatherData['Day1']['lower'] }}</h4>
+                                            <h4 class="degrees"><i class="fa fa-arrow-up" aria-hidden="true"></i>{{ $wheatherData['Day1']['higher'] }}</h4>
+                                            <img src="{{asset('images/'.$wheatherData['Day1']['imagePath'])}}" width="50px" height="50px">
+
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <div class="daily-weather">
-                                            <h2 class="day">Tue</h2>
-                                            <h3 class="degrees">25</h3>
-                                            <canvas height="32" width="32" id="rain"></canvas>
-                                            <h5>12 <i>km/h</i></h5>
+                                            <h2 class="day">{{ $wheatherData['Day2']['Day'] }}</h2>
+                                            <h4 class="degrees"><i class="fa fa-arrow-down" aria-hidden="true"></i>{{ $wheatherData['Day2']['lower'] }}</h4>
+                                            <h4 class="degrees"><i class="fa fa-arrow-up" aria-hidden="true"></i>{{ $wheatherData['Day2']['higher'] }}</h4>
+                                            <img src="{{asset('images/'.$wheatherData['Day2']['imagePath'])}}" width="50px" height="50px">
+
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <div class="daily-weather">
-                                            <h2 class="day">Wed</h2>
-                                            <h3 class="degrees">27</h3>
-                                            <canvas height="32" width="32" id="snow"></canvas>
-                                            <h5>14 <i>km/h</i></h5>
+                                            <h2 class="day">{{ $wheatherData['Day3']['Day'] }}</h2>
+                                            <h4 class="degrees"><i class="fa fa-arrow-down" aria-hidden="true"></i>{{ $wheatherData['Day3']['lower'] }}</h4>
+                                            <h4 class="degrees"><i class="fa fa-arrow-up" aria-hidden="true"></i>{{ $wheatherData['Day3']['higher'] }}</h4>
+                                            <img src="{{asset('images/'.$wheatherData['Day3']['imagePath'])}}" width="50px" height="50px">
+
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <div class="daily-weather">
-                                            <h2 class="day">Thu</h2>
-                                            <h3 class="degrees">28</h3>
-                                            <canvas height="32" width="32" id="sleet"></canvas>
-                                            <h5>15 <i>km/h</i></h5>
+                                            <h2 class="day">{{ $wheatherData['Day4']['Day'] }}</h2>
+                                            <h4 class="degrees"><i class="fa fa-arrow-down" aria-hidden="true"></i>{{ $wheatherData['Day4']['lower'] }}</h4>
+                                            <h4 class="degrees"><i class="fa fa-arrow-up" aria-hidden="true"></i>{{ $wheatherData['Day4']['higher'] }}</h4>
+                                            <img src="{{asset('images/'.$wheatherData['Day4']['imagePath'])}}" width="50px" height="50px">
+
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <div class="daily-weather">
-                                            <h2 class="day">Fri</h2>
-                                            <h3 class="degrees">28</h3>
-                                            <canvas height="32" width="32" id="wind"></canvas>
-                                            <h5>11 <i>km/h</i></h5>
+                                            <h2 class="day">{{ $wheatherData['Day5']['Day'] }}</h2>
+                                            <h4 class="degrees"><i class="fa fa-arrow-down" aria-hidden="true"></i>{{ $wheatherData['Day5']['lower'] }}</h4>
+                                            <h4 class="degrees"><i class="fa fa-arrow-up" aria-hidden="true"></i>{{ $wheatherData['Day5']['higher'] }}</h4>
+                                            <img src="{{asset('images/'.$wheatherData['Day5']['imagePath'])}}" width="50px" height="50px">
+
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
-                                        <div class="daily-weather">
-                                            <h2 class="day">Sat</h2>
-                                            <h3 class="degrees">26</h3>
-                                            <canvas height="32" width="32" id="cloudy"></canvas>
-                                            <h5>10 <i>km/h</i></h5>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -323,7 +235,7 @@
                                         </div>
                                         <div class="card-body">
                                             <span>Dollar</span>
-                                            <div class="card-text"> 8 ₺ </div>
+                                            <div class="card-text"> {{$currency['USD']}} ₺</div>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -334,7 +246,7 @@
                                         </div>
                                         <div class="card-body">
                                             <span>Euro</span>
-                                            <div class="card-text">10 ₺</div>
+                                            <div class="card-text">{{$currency['EUR']}} ₺</div>
 
                                         </div>
                                     </div>
@@ -345,7 +257,7 @@
                                         </div>
                                         <div class="card-body">
                                             <span>Pound</span>
-                                            <div class="card-text">10 ₺</div>
+                                            <div class="card-text">{{$currency['GBP']}} ₺</div>
 
                                         </div>
                                     </div>
@@ -356,7 +268,7 @@
                                         </div>
                                         <div class="card-body">
                                             <span>Yen</span>
-                                            <div class="card-text">10</div>
+                                            <div class="card-text">{{$currency['JPY']}} ₺</div>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -366,7 +278,7 @@
                                         </div>
                                         <div class="card-body">
                                             <span>AED</span>
-                                            <div class="card-text">10 ₺</div>
+                                            <div class="card-text">{{$currency['AED']}} ₺</div>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -376,7 +288,7 @@
                                         </div>
                                         <div class="card-body">
                                             <span>Krona</span>
-                                            <div class="card-text">2 ₺</div>
+                                            <div class="card-text">{{$currency['SEK']}} ₺</div>
                                         </div>
                                     </div>
                                 </div>
@@ -391,7 +303,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>Rouble</span>
-                                                <div class="card-text">4 ₺</div>
+                                                <div class="card-text">{{$currency['RUB']}} ₺</div>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -402,7 +314,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>Yuan</span>
-                                                <div class="card-text">3 ₺</div>
+                                                <div class="card-text">{{$currency['CNY']}} ₺</div>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -412,7 +324,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>Manat</span>
-                                                <div class="card-text">4₺</div>
+                                                <div class="card-text">{{$currency['AZN']}} ₺</div>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -422,7 +334,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>Riyal</span>
-                                                <div class="card-text">12 ₺</div>
+                                                <div class="card-text">{{$currency['SAR']}} ₺</div>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -432,7 +344,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>ETH</span>
-                                                <div class="card-text">16000  ₺</div>
+                                                <div class="card-text">{{$currency['ethereum']}} ₺</div>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -442,7 +354,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>BTC</span>
-                                                <div class="card-text">400000 ₺</div>
+                                                <div class="card-text">{{$currency['bitcoin']}} ₺</div>
                                             </div>
                                         </div>
                                     </div>
@@ -454,58 +366,8 @@
 
                     </div>
                 </div>
-
         </div>
 
+@include('footer')
 
-
-    </div>
-</div>
-<!-- jQuery -->
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<!-- Bootstrap -->
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<!-- FastClick -->
-<script src="{{ asset('js/fastclick.js') }}"></script>
-<!-- NProgress -->
-<script src="{{ asset('js/nprogress.js') }}"></script>
-<!-- Chart.js -->
-<script src="{{ asset('js/Chart.min.js') }}"></script>
-<!-- gauge.js -->
-<script src="{{ asset('js/gauge.min.js') }}"></script>
-<!-- bootstrap-progressbar -->
-<script src="{{ asset('js/bootstrap-progressbar.min.js') }}"></script>
-<!-- iCheck -->
-<script src="{{ asset('js/icheck.min.js') }}"></script>
-<!-- Skycons -->
-<script src="{{ asset('js/skycons.js') }}"></script>
-<!-- Flot -->
-<script src="{{ asset('js/jquery.flot.js') }}"></script>
-<script src="{{ asset('js/jquery.flot.pie.js') }}"></script>
-<script src="{{ asset('js/jquery.flot.time.js') }}"></script>
-<script src="{{ asset('js/jquery.flot.stack.js') }}"></script>
-<script src="{{ asset('js/jquery.flot.resize.js') }}"></script>
-<!-- Flot plugins -->
-<script src="{{ asset('js/jquery.flot.orderBars.js') }}"></script>
-<script src="{{ asset('js/jquery.flot.spline.min.js') }}"></script>
-<script src="{{ asset('js/curvedLines.js') }}"></script>
-<!-- DateJS -->
-<script src="{{ asset('js/date.js') }}"></script>
-<!-- JQVMap -->
-<script src="{{ asset('js/jquery.vmap.js') }}"></script>
-<script src="{{ asset('js/jquery.vmap.world.js') }}"></script>
-<script src="{{ asset('js/jquery.vmap.sampledata.js') }}"></script>
-<!-- bootstrap-daterangepicker -->
-<script src="{{ asset('js/moment.min.js') }}"></script>
-<script src="{{ asset('js/daterangepicker.js') }}"></script>
-
-<!-- Custom Theme Scripts -->
-<script src="{{ asset('js/custom.js') }}"></script>
-
-<!-- easy-pie-chart -->
-<script src="{{ asset('js/jquery.easypiechart.js') }}"></script>
-
-
-</body>
-</html>
 
