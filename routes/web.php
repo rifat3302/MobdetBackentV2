@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MobilDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
@@ -37,9 +38,8 @@ Route::get('/newCustommer',function (){
 Route::post('/newCustomerAdd',[CustomerController::class,'newCustomerAdd']);
 
 
-
-
 Route::get('/{param?}', function ($param = 'ok') {
     return view('login',['status'=>$param]);
 })->name("login");
+
 

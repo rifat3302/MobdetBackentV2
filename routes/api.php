@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\MobilDashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use \App\Http\Controllers\RoomController;
 use \App\Http\Controllers\HelpersController;
+use \App\Http\Controllers\MenuController;
 use App\Models\rooms;
 
 /*
@@ -20,6 +22,7 @@ use App\Models\rooms;
 
 //MobilHotelRoutes
 Route::post('/MHlogin', [RoomController::class,'login']);
+
 
 Route::get('/', function () {
     return view('greeting', ['name' => 'James']);
@@ -37,6 +40,11 @@ Route::get('/room',function (){
 
     return rooms::all();
 });
+
+//Mobil Routes
+
+Route::get('/mobilDashboardOccupancy',[MobilDashboardController::class,'getOccupancy']);
+Route::get('/mobilMenu',[MenuController::class,'getAllMenu']);
 
 
 
