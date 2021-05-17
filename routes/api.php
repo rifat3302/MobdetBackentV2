@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use \App\Http\Controllers\RoomController;
 use \App\Http\Controllers\HelpersController;
 use \App\Http\Controllers\MenuController;
+use \App\Http\Controllers\OrderController;
 use App\Models\rooms;
 
 /*
@@ -45,6 +46,7 @@ Route::get('/room',function (){
 
 Route::get('/mobilDashboardOccupancy',[MobilDashboardController::class,'getOccupancy']);
 Route::get('/mobilMenu',[MenuController::class,'getAllMenu']);
+Route::post('/saveOrder', [OrderController::class,'saveOrder']);
 
 
 
