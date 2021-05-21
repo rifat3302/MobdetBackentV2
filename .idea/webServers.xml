@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="ef4bae7e-8775-4b18-9f56-2439e6959c4f" name="Mobdet" url="http://ftp.seocuyuz.online">
-        <fileTransfer host="ftp.seocuyuz.online" port="21">
+      <webServer id="ef4bae7e-8775-4b18-9f56-2439e6959c4f" name="Mobdet" url="http://45.84.189.195">
+        <fileTransfer host="45.84.189.195" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

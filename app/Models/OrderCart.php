@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 class OrderCart extends Model
 {
 
-    public $table = "order_user";
+    public $table = "order_cart";
     use HasFactory;
+    public $timestamps = false;
 
     protected $fillable = [
         'user_id',
