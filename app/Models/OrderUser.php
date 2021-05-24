@@ -11,7 +11,7 @@ class OrderUser extends Model
 {
 
     protected $casts = [
-        'order_date' => 'datetime:Y-m-d h:i:s', // Change your format
+        'order_date' => 'datetime:Y-m-d H:i:s', // Change your format
     ];
 
     public $timestamps = false;
