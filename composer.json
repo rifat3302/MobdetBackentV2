@@ -19,6 +19,7 @@
         "laravel/sanctum": "^2.9",
         "laravel/tinker": "^2.5",
         "twbs/bootstrap": "^4.6",
+        "twilio/sdk": "^6.24",
         "uxweb/sweet-alert": "^2.0"
     },
     "require-dev": {

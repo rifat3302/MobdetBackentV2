@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\rooms;
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use Twilio\Rest\Client;
 
 class CustomerController extends Controller
 {
@@ -36,6 +38,15 @@ class CustomerController extends Controller
                         'customer_approve' => false
 
                     ]);
+
+                    rooms::where('room_number',intval($request->roomNumber))
+                        ->update([
+                            'isBook' =>1,
+                            'isClean' => 0
+                        ]);
+                    if(!$this->sendSmsPrivateKey($key['phone'],$privateKey)){
+                        throw new \Exception("Dont send private key via sms",29000);
+                    }
                 }
 
 
@@ -59,5 +70,25 @@ class CustomerController extends Controller
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    private function sendSmsPrivateKey($phone,$privateKey){
+
+        try{
+        $client = new Client(env("ACCOUNT_SID"), env("AUTH_TOKEN"));
+
+        $client->messages->create(
+            $phone,
+            array(
+                "from" => env("TWILIO_PHONE_NUMBER"),
+                "body" => "Welcome to our hotel. Your private key is"." $privateKey"
+            ));
+            }catch (\Exception $exception){
+            return false;
+        }
+        return true;
+
+
+
     }
 }

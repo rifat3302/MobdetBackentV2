@@ -131,4 +131,101 @@ class OrderController extends Controller
 
 
     }
+
+    public function getOrders(){
+
+            $data = [];
+            $orders = OrderUser::whereIn('state',[1,2])
+                ->orderBy('id', 'DESC')->get();
+            if(!empty($orders)){
+
+                foreach ($orders as $order){
+                    $orderDetails =[];
+
+                    $ord = DB::table('order_cart')
+                        ->select(
+
+                            'order_cart.order_user_id',
+                            'order_cart.menu_id',
+                            'menu.name',
+                            'order_cart.menu_sub_id',
+                            'order_cart.count',
+                            'order_cart.total'
+                        )
+                        ->join('menu', 'menu.id', '=', 'order_cart.menu_id')
+                        ->where('order_cart.order_user_id', $order->id)
+                        ->orderBy('menu_sub_id', 'ASC')->get();
+
+
+                    foreach ($ord as  $od){
+
+                        $orderDetails  [] =  [
+
+                            'order_user_id' => $od->order_user_id,
+                            'menu_id' => $od->menu_id,
+                            'menu_sub_id' => $od->menu_sub_id,
+                            'name' => $od->name,
+                            'count' => $od->count,
+                            'total' => $od->total,
+                        ];
+                    }
+                    $data [] = [
+                        'order'  => $order->toArray(),
+                        'order_details' =>$orderDetails
+
+                    ];
+                }
+
+               return $data;
+        }
+    }
+
+    public function cancelOrder($id){
+
+        try{
+
+         OrderUser::where('id',$id)
+             ->update([
+                 'state'=>4
+             ]);
+
+        }catch (\Exception $e){
+
+        }
+        return redirect()->route("order");
+
+    }
+
+    public function gettingReadyOrder($id){
+
+        try{
+
+            OrderUser::where('id',$id)
+                ->update([
+                    'state'=>2
+                ]);
+
+        }catch (\Exception $e){
+
+        }
+        return redirect()->route("order");
+
+    }
+
+
+    public function readyOrder($id){
+
+        try{
+
+            OrderUser::where('id',$id)
+                ->update([
+                    'state'=>3
+                ]);
+
+        }catch (\Exception $e){
+
+        }
+        return redirect()->route("order");
+
+    }
 }

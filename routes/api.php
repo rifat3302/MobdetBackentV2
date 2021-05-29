@@ -24,6 +24,8 @@ use App\Http\Controllers\GooglePlacesController;
 
 //MobilHotelRoutes
 Route::post('/MHlogin', [RoomController::class,'login']);
+Route::post('/qrControl', [RoomController::class,'controlQrKey']);
+
 
 
 Route::get('/', function () {

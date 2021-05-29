@@ -33,5 +33,12 @@
     <!-- Custom Theme Style -->
     <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet" type="text/css" >
 
+    <style>
+        .order-top {
+            font-family: Fantasy;
+        }
+
+    </style>
+
 
 </head>

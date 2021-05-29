@@ -22,13 +22,13 @@
                             <li><a href="{{url('newCustommer')}}"><i class="fa fa-user-plus"></i> New Customer</a>
                             </li>
                             <li>
-                                <a><i class="fa fa-bed"></i> Rooms</a>
+                                <a href="{{url('rooms')}}" ><i class="fa fa-bed"></i> Rooms</a>
                             </li>
                             <li>
                                 <a><i class="fa fa-users"></i> Users </a>
                             </li>
                             <li>
-                                <a><i class="fa fa-cutlery"></i> Orders </a>
+                                <a  href="{{url('orders')}}"><i class="fa fa-cutlery"></i> Orders </a>
                             </li>
                             <li>
                                 <a><i class="fa fa-bell-o"></i>Wake-up Service</a>

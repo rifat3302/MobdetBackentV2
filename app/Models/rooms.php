@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class rooms extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $fillable = [
         'user_id',
@@ -18,6 +19,7 @@ class rooms extends Model
         'isBook',
         'isActive',
         'note',
-        'guest_count'
+        'guest_count',
+        'url'
     ];
 }
