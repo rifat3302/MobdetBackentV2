@@ -21,7 +21,7 @@ class RoomController extends Controller
 
            $customer = Customer::where('private_key',$field['private_key'])
                ->where('admin_approve',1)
-               ->where('customer_approve',0)->first();
+               ->where('customer_approve',1)->first();
 
            if($customer){
                $room = rooms::where([
@@ -51,7 +51,7 @@ class RoomController extends Controller
            return response([
                'message' => $exception->getMessage(),
                'data' => null
-           ],401);
+           ],201);
 
        }
 
@@ -180,6 +180,15 @@ class RoomController extends Controller
             ],400);
         }
 
+
+    }
+
+    public function logoutControlServiceForMobile(Request $request){
+
+         $user = Customer::where('active',true)
+            ->where('id',$request->id)->get();
+
+         $a  = 0;
 
     }
 }

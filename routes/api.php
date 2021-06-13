@@ -10,6 +10,7 @@ use \App\Http\Controllers\MenuController;
 use \App\Http\Controllers\OrderController;
 use App\Models\rooms;
 use App\Http\Controllers\GooglePlacesController;
+use App\Http\Controllers\TestAnswerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ use App\Http\Controllers\GooglePlacesController;
 //MobilHotelRoutes
 Route::post('/MHlogin', [RoomController::class,'login']);
 Route::post('/qrControl', [RoomController::class,'controlQrKey']);
+Route::post('/logoutControlServiceForMobile',[RoomController::class,'logoutControlServiceForMobile']);
 
 
 
@@ -56,15 +58,12 @@ Route::get('/getNearbyPlaces', [GooglePlacesController::class,'getNearbyPlaces']
 Route::get('/getTaxiInfo', [GooglePlacesController::class,'getTaxiInfo']);
 
 
-
-
-
-
-
-
-
-
-
+//Mobdet
+Route::post('/loginMD', [AuthController::class,'loginMD']);
+Route::post('/getTestAnswer', [TestAnswerController::class,'getTestAnswer']);
+Route::get('/getTests', [TestAnswerController::class,'getTests']);
+Route::post('/getExplain',[TestAnswerController::class,'getExplain']);
+Route::post('/getHistoryTest',[TestAnswerController::class,'getHistoryTest']);
 
 
 

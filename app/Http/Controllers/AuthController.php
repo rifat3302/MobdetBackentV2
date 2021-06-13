@@ -29,15 +29,21 @@ class AuthController extends Controller
             'surname' => $field['surname'],
             'email' => $field['email'],
             'age' => $field['age'],
-            'password' =>  bcrypt($field['password'])
+            'password' =>  bcrypt($field['password']),
+            'sex' =>  $request->sex
 
         ]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
 
-        $response = [
+       /* $response = [
           'user' => $user,
           'token' => $token
+        ];*/
+
+        $response = [
+            'message' => 'success',
+            'errors' => null
         ];
 
         return response($response,201);
@@ -84,10 +90,9 @@ class AuthController extends Controller
         $user = User::where('username',$field['username'])->first();
 
         if(!$user || !Hash::check($field['password'],$user->password)){
-            /* return response([
+             return response([
                'message' => 'Bad creds'
-             ],401);*/
-            return redirect()->route("login",['param'=>'fail']);
+             ],401);
         }
 
         $token = $user->createToken('myapptoken')->plainTextToken;
@@ -96,7 +101,6 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token
         ];
-        return view('home');
 
         return response($response,201);
 

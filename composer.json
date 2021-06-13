@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "bensampo/laravel-enum": "^3.3",
         "components/font-awesome": "^5.15",
         "doctrine/dbal": "^3.1",
         "epnz/nprogress": "^0.2.0",
