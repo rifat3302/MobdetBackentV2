@@ -17,7 +17,7 @@
 
                         <ul class="nav side-menu">
                             <li>
-                                <a href="{{url('home')}}"><i class="fa fa-home"></i> Home</a>
+                                <a href="{{url('dashboard')}}"><i class="fa fa-home"></i> Home</a>
                             </li>
                             <li><a href="{{url('newCustommer')}}"><i class="fa fa-user-plus"></i> New Customer</a>
                             </li>
