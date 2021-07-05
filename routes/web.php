@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\DashboadController;
 use App\Http\Controllers\OrderController;
+use \App\Http\Controllers\AlarmController;
 
 use \UxWeb\SweetAlert\SweetAlertServiceProvider;
 
@@ -22,7 +23,10 @@ use \UxWeb\SweetAlert\SweetAlertServiceProvider;
 |
 */
 
+Route::get('/websocketevent',function (){
 
+
+});
 
 Route::post('/home',[AuthController::class,'login']);
 
@@ -49,6 +53,12 @@ Route::get('/orders' ,function (){
 Route::get('/cancelOrder/{id}',[OrderController::class,'cancelOrder']);
 Route::get('/gettingReadyOrder/{id}',[OrderController::class,'gettingReadyOrder']);
 Route::get('/readyOrder/{id}',[OrderController::class,'readyOrder']);
+
+Route::get('/getAllAlarm',function (){
+    $alarms = (new AlarmController())->getAllAlarm();
+    return view('alarm',['alarms'=>$alarms]);
+})->name("alarm");
+Route::get('/wakeUp/{room_number}',[AlarmController::class,'wakeUp']);
 
 
 

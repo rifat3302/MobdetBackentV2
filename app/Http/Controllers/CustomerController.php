@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PlacesUserCross;
 use App\Models\rooms;
 use Illuminate\Http\Request;
 use App\Models\Customer;
@@ -21,7 +22,7 @@ class CustomerController extends Controller
                         'phone' => $key['phone']
                     ];
 
-                    Customer::create([
+                    $customer = Customer::create([
                         'room_number' => $request->roomNumber,
                         'tc' => $key['tc'],
                         'name' => $key['name'],
@@ -37,6 +38,10 @@ class CustomerController extends Controller
                         'admin_approve' => true,
                         'customer_approve' => false
 
+                    ]);
+                    $id = $customer->id;
+                    PlacesUserCross::create([
+                        'user_id'=>$id
                     ]);
 
                     rooms::where('room_number',intval($request->roomNumber))
@@ -63,7 +68,7 @@ class CustomerController extends Controller
     }
 
     private function generatePrivateKey($length=4){
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = '0123456789';
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {

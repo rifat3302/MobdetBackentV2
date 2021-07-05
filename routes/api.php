@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MobilDashboardController;
+use App\Http\Controllers\RoomInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -11,6 +12,9 @@ use \App\Http\Controllers\OrderController;
 use App\Models\rooms;
 use App\Http\Controllers\GooglePlacesController;
 use App\Http\Controllers\TestAnswerController;
+use App\Http\Controllers\PlacesController;
+use \App\Http\Controllers\AlarmController;
+use \App\Http\Controllers\UserInfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +32,10 @@ Route::post('/MHlogin', [RoomController::class,'login']);
 Route::post('/qrControl', [RoomController::class,'controlQrKey']);
 Route::post('/logoutControlServiceForMobile',[RoomController::class,'logoutControlServiceForMobile']);
 
-
-
-Route::get('/', function () {
-    return view('greeting', ['name' => 'James']);
+Route::get('/pushOrder',function (){
+    broadcast(new \App\Events\WebSocketDemoEvent('some data'));
 });
+
 
 //Hepler Route
 Route::get('/GC', [HelpersController::class,'getCurrency']);
@@ -55,7 +58,12 @@ Route::post('/saveOrder', [OrderController::class,'saveOrder']);
 Route::post('/getOrderHistory', [OrderController::class,'getOrderHistory']);
 
 Route::get('/getNearbyPlaces', [GooglePlacesController::class,'getNearbyPlaces']);
-Route::get('/getTaxiInfo', [GooglePlacesController::class,'getTaxiInfo']);
+Route::get('/getPlaces', [GooglePlacesController::class,'getPlaces']);
+Route::get('/getTaxi', [GooglePlacesController::class,'getTaxi']);
+Route::post('/controlPlacesQrKey',[PlacesController::class,'controlPlacesQrKey']);
+Route::post('/setAlarm',[AlarmController::class,'setAlarm']);
+Route::post('/getUserInfo',[UserInfoController::class,'getUserInfo']);
+Route::get('/getRoomInfo',[RoomInfoController::class,'getRoomInfo']);
 
 
 //Mobdet

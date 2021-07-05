@@ -14,12 +14,12 @@ class GooglePlacesController extends Controller
         return  $helper->getNearbyPlaces();
 
     }
-    public function getTaxiInfo(){
+    //Todo burası değişecek isimlendirme farklı olacak
+    public function getPlaces(){
 
         $helper = new GooglePlacesApiHelper();
-        $taxi = $helper->getTaxiInfo();
         $hospital = $helper->getHospitalInfo();
-        //$pharmacy = $helper->getPharmacyInfo();
+       // $pharmacy = $helper->getPharmacyInfo();
         // Aylık  100 request  hakkı vardır. Yeni maille yeni api key alınmalıdır.
         $pharmacyDuty = $helper->getDutyPharmacy();
         $laundry= $helper->getLaunndry();
@@ -28,21 +28,71 @@ class GooglePlacesController extends Controller
         $tourist_attraction= $helper->getTouristAttraction();
         $museum= $helper->getMuseum();
         $hairCare= $helper->getHairCare();
-        $a =0;
+
 
         return response([
-            'taxi' => $taxi,
-            'hospital' => $hospital,
-            'pharmacyDuty'=>  $pharmacyDuty,
-            'laundry' => $laundry,
-            'bank' => $bank,
-            'atm' => $atm ,
-            'tourist_attraction' => $tourist_attraction ,
-            'museum' => $museum,
-            'hairCare' => $hairCare
+
+            'places' => [
+                [
+                    'id' => 'hospital',
+                    'name_head' => 'Hospital',
+                    'data' => $hospital,
+                    'type' => 1
+                ],
+                [
+                    'id' => 'pharmacy_duty',
+                    'name_head' => 'Pharmacy Duty',
+                    'data' => $pharmacyDuty,
+                    'type'  => 1
+                ],
+                [
+                    'id' => 'laundry',
+                    'name_head' => 'Laundry',
+                    'data' => $laundry,
+                    'type'  => 3
+                ],
+                [
+                    'id' => 'bank',
+                    'name_head' => 'Bank',
+                    'data' => $bank,
+                    'type'  => 1
+                ],
+                [
+                    'id' => 'atm',
+                    'name_head' => 'ATM',
+                    'data' => $atm,
+                    'type'  => 2
+                ],
+                [
+                    'id' => 'tourist_attraction',
+                    'name_head' => 'Tourist Attraction',
+                    'data' => $tourist_attraction,
+                    'type'  => 2
+                ],
+                [
+                    'id' => 'museum',
+                    'name_head' => 'Museum',
+                    'data' => $museum,
+                    'type'  => 2
+                ],
+                [
+                    'id' => 'hair_care',
+                    'name_head' => 'Hair Care',
+                    'data' => $hairCare,
+                    'type'  => 2
+                ]
+            ]
 
         ],201);
 
+    }
+
+    public function getTaxi(){
+        $helper = new GooglePlacesApiHelper();
+        $taxi = $helper->getTaxiInfo();
+        return response([
+            'taxi' => $taxi
+        ],200);
     }
 
 }

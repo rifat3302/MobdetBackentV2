@@ -23,12 +23,12 @@ class GooglePlacesApiHelper
      * arama yapılacak yerin yarıçapı 1000
      *
      */
-    public function getNearbyPlaces($latitude=38.37243978867742,$longitude=27.18414316441775,$radius=10000){
+    public function getNearbyPlaces(){
 
         try{
             $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-                .$latitude.','.$longitude
-                .'&radius='.$radius
+                .getenv("LAT").','.getenv("LON")
+                .'&radius='.getenv("RADIUS")
                 .'&type=taxi_stand'
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
             );
@@ -51,12 +51,12 @@ class GooglePlacesApiHelper
 
     }
 
-    public function getTaxiInfo($latitude=38.37243978867742,$longitude=27.18414316441775,$radius=5000){
+    public function getTaxiInfo($radius=5000){
 
         $returnTaxiData = [];
         try{
             $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-                .$latitude.','.$longitude
+                .getenv("LAT").','.getenv("LON")
                 .'&rankby=distance'
                 .'&type=taxi_stand'
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
@@ -75,9 +75,11 @@ class GooglePlacesApiHelper
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
                 );
                if(!empty($taxiResponse->json()['result']['formatted_phone_number'])){
-                   $returnTaxiData [] = $taxiResponse->json()['result'];
+                   $taxi = $taxiResponse->json()['result'];
+                   $taxi['rating']=0;
+                   $returnTaxiData [] = $taxi;
                }
-               if(count($returnTaxiData)>=5){
+               if(count($returnTaxiData)>=3){
                    break;
                }
             }
@@ -91,12 +93,12 @@ class GooglePlacesApiHelper
 
     }
 
-    public function getHospitalInfo($latitude=38.37243978867742,$longitude=27.18414316441775,$radius=5000){
+    public function getHospitalInfo(){
 
         $returnHospitalData = [];
         try{
             $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-                .$latitude.','.$longitude
+                .getenv("LAT").','.getenv("LON")
                 .'&rankby=distance'
                 .'&type=hospital'
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
@@ -108,12 +110,16 @@ class GooglePlacesApiHelper
             $response = $response->json()['results'];
 
             foreach ($response as $res){
-                $returnHospitalData [] = $res;
+                $returnedNewData = [];
+                $returnedNewData['name'] = $res['name'];
+                $returnedNewData['geo'] = $res['geometry']['location'];
+                $returnedNewData['image_url'] = getenv("IMAGE_API_URL")."hospital.png";
+                $returnHospitalData [] = $returnedNewData;
+
                 if(count($returnHospitalData)>=10){
                     break;
                 }
             }
-
             return $returnHospitalData;
 
         }catch (\Exception $exception){
@@ -123,12 +129,12 @@ class GooglePlacesApiHelper
 
     }
 
-    public function getPharmacyInfo($latitude=38.37243978867742,$longitude=27.18414316441775,$radius=5000){
+    public function getPharmacyInfo(){
 
         $returnPharmacyData = [];
         try{
             $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-                .$latitude.','.$longitude
+                .getenv("LAT").','.getenv("LON")
                 .'&rankby=distance'
                 .'&type=pharmacy'
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
@@ -155,12 +161,12 @@ class GooglePlacesApiHelper
 
     }
 
-    public function getLaunndry($latitude=38.37243978867742,$longitude=27.18414316441775,$radius=10000){
+    public function getLaunndry(){
 
         $returnLaundryData = [];
         try{
             $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-                .$latitude.','.$longitude
+                .getenv("LAT").','.getenv("LON")
                 .'&rankby=distance'
                 .'&type=laundry'
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
@@ -180,7 +186,12 @@ class GooglePlacesApiHelper
                     .'&key='.env('GOOGLE_PLACES_API_KEY')
                 );
                 if(!empty($laundryResponse->json()['result']['formatted_phone_number'])){
-                    $returnLaundryData [] = $laundryResponse->json()['result'];
+                    $data = $laundryResponse->json()['result'];
+                    $newAddedDataWill ['formatted_phone_number'] = $data['formatted_phone_number'];
+                    $newAddedDataWill ['name'] = $data['name'];
+                    $newAddedDataWill['image_url'] = getenv("IMAGE_API_URL")."laundry.png";
+                    $returnLaundryData [] = $newAddedDataWill;
+
                 }
                 if(count($returnLaundryData)>=5){
                     break;
@@ -196,12 +207,12 @@ class GooglePlacesApiHelper
 
     }
 
-    public function getAtm($latitude=38.37243978867742,$longitude=27.18414316441775,$radius=5000){
+    public function getAtm(){
 
         $returnAtmData = [];
         try{
             $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-                .$latitude.','.$longitude
+                .getenv("LAT").','.getenv("LON")
                 .'&rankby=distance'
                 .'&type=atm'
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
@@ -213,8 +224,13 @@ class GooglePlacesApiHelper
             $response = $response->json()['results'];
 
             foreach ($response as $res){
-                $returnAtmData [] = $res;
+                $returnedNewData = [];
+                $returnedNewData['name'] = $res['name'];
+                $returnedNewData['geo'] = $res['geometry']['location'];
+                $returnedNewData['image_url'] = getenv("IMAGE_API_URL")."atm.png";
+                $returnAtmData [] = $returnedNewData;
                 if(count($returnAtmData)>=10){
+
                     break;
                 }
             }
@@ -228,12 +244,12 @@ class GooglePlacesApiHelper
 
     }
 
-    public function getBank($latitude=38.37243978867742,$longitude=27.18414316441775,$radius=5000){
+    public function getBank(){
 
         $returnBankData = [];
         try{
             $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-                .$latitude.','.$longitude
+                .getenv("LAT").','.getenv("LON")
                 .'&rankby=distance'
                 .'&type=bank'
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
@@ -245,7 +261,11 @@ class GooglePlacesApiHelper
             $response = $response->json()['results'];
 
             foreach ($response as $res){
-                $returnBankData [] = $res;
+                $returnedNewData = [];
+                $returnedNewData['name'] = $res['name'];
+                $returnedNewData['geo'] = $res['geometry']['location'];
+                $returnedNewData['image_url'] = getenv("IMAGE_API_URL")."banka.png";
+                $returnBankData [] = $returnedNewData;
                 if(count($returnBankData)>=10){
                     break;
                 }
@@ -260,13 +280,13 @@ class GooglePlacesApiHelper
 
     }
 
-    public function getTouristAttraction($latitude=38.37243978867742,$longitude=27.18414316441775,$radius=50000){
+    public function getTouristAttraction(){
 
         $returnTouristAttractionData = [];
         try{
             $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-                .$latitude.','.$longitude
-                .'&rankby=distance'
+                .getenv("LAT").','.getenv("LON")
+                .'&radius=100000'
                 .'&type=tourist_attraction'
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
             );
@@ -277,12 +297,16 @@ class GooglePlacesApiHelper
             $response = $response->json()['results'];
 
             foreach ($response as $res){
-                $returnBankData [] = $res;
+                $newWilladdedData = [];
+                $newWilladdedData['name'] = $res['name'];
+                $newWilladdedData ['geo'] = $res['geometry']['location'];
+                $newWilladdedData['image_url'] = getenv("IMAGE_API_URL")."tourist.png";
+                $returnTouristAttractionData [] = $newWilladdedData;
+
                 if(count($returnTouristAttractionData)>=10){
                     break;
                 }
             }
-
             return $returnTouristAttractionData;
 
         }catch (\Exception $exception){
@@ -292,12 +316,12 @@ class GooglePlacesApiHelper
 
     }
 
-    public function getMuseum($latitude=38.37243978867742,$longitude=27.18414316441775,$radius=100000){
+    public function getMuseum(){
 
         $returnMuseumData = [];
         try{
             $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-                .$latitude.','.$longitude
+                .getenv("LAT").','.getenv("LON")
                 .'&rankby=distance'
                 .'&type=museum'
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
@@ -309,12 +333,15 @@ class GooglePlacesApiHelper
             $response = $response->json()['results'];
 
             foreach ($response as $res){
-                $returnMuseumData [] = $res;
+                $returnedNewData = [];
+                $returnedNewData['name'] = $res['name'];
+                $returnedNewData['geo'] = $res['geometry']['location'];
+                $returnedNewData['image_url'] = getenv("IMAGE_API_URL")."muze.png";
+                $returnMuseumData [] = $returnedNewData;
                 if(count($returnMuseumData)>=10){
                     break;
                 }
             }
-
             return $returnMuseumData;
 
         }catch (\Exception $exception){
@@ -324,12 +351,12 @@ class GooglePlacesApiHelper
 
     }
 
-    public function getHairCare($latitude=38.37243978867742,$longitude=27.18414316441775,$radius=100000){
+    public function getHairCare(){
 
         $returnHairCareData = [];
         try{
             $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-                .$latitude.','.$longitude
+                .getenv("LAT").','.getenv("LON")
                 .'&rankby=distance'
                 .'&type=hair_care'
                 .'&key='.env('GOOGLE_PLACES_API_KEY')
@@ -341,12 +368,15 @@ class GooglePlacesApiHelper
             $response = $response->json()['results'];
 
             foreach ($response as $res){
-                $returnHairCareData [] = $res;
+                $returnedNewData = [];
+                $returnedNewData['name'] = $res['name'];
+                $returnedNewData['geo'] = $res['geometry']['location'];
+                $returnedNewData['image_url'] = getenv("IMAGE_API_URL")."kuafor.png";
+                $returnHairCareData [] = $returnedNewData;
                 if(count($returnHairCareData)>=10){
                     break;
                 }
             }
-
             return $returnHairCareData;
 
         }catch (\Exception $exception){
@@ -362,25 +392,33 @@ class GooglePlacesApiHelper
         foreach ($pharmacy as $pharm){
             $lonlat = explode(",",$pharm['loc']);
             $distance = $this->distance(
-                38.37243978867742,
-                27.18414316441775,
+                getenv("LAT"),
+                getenv("LON"),
                floatval( $lonlat[0]),
                floatval( $lonlat[1]),
                 'K'
             );
             if($distance<5){
-                $dutyPharmacy []  =  $pharm;
+                $newPharm = [];
+                $newPharm['name'] = $pharm['name'];
+                $newPharm['dist'] = $pharm['dist'];
+                $newPharm['address'] = $pharm['address'];
+                $newPharm['phone'] = $pharm['phone'];
+                $newPharm['lat'] = $lonlat[0];
+                $newPharm['lon'] = $lonlat[1];
+
+                $dutyPharmacy []  =  $newPharm;
             }
         }
         return $dutyPharmacy;
 
     }
 
-    private function getDutyPharmacyCurl($discrict='Izmir'){
+    private function getDutyPharmacyCurl(){
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, 'https://api.collectapi.com/health/dutyPharmacy?il='.$discrict);
+        curl_setopt($ch, CURLOPT_URL, 'https://api.collectapi.com/health/dutyPharmacy?il='.getenv("PHARM_DIST"));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 

@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{csrf_token()}}">
 
     <title>Mobil Hotel</title>
 
@@ -32,6 +33,11 @@
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
+                <audio id="audiobox" >
+                <source src="{{asset('Audio/Country_Blues.mp3')}}" type="audio/mpeg"></source>
+                <source src="{{asset('Audio/Country_Blues.mp3')}}" type="audio/wav"></source>
+                <source src="{{asset('Audio/Country_Blues.mp3')}}" type="audio/ogg"></source>
+                </audio>
                 <form action="home" method="post">
                     @csrf
                     <h1>Welcome Mobil  Hotel </h1>
@@ -75,5 +81,6 @@
 
     </div>
 </div>
+<script src="js/app.js"></script>
 </body>
 </html>

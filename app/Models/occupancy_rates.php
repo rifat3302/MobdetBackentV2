@@ -9,6 +9,8 @@ class occupancy_rates extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'pool_capacity',
         'pool_count',

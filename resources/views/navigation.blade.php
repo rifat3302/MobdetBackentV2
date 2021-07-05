@@ -24,18 +24,14 @@
                             <li>
                                 <a href="{{url('rooms')}}" ><i class="fa fa-bed"></i> Rooms</a>
                             </li>
-                            <li>
-                                <a><i class="fa fa-users"></i> Users </a>
-                            </li>
+
                             <li>
                                 <a  href="{{url('orders')}}"><i class="fa fa-cutlery"></i> Orders </a>
                             </li>
                             <li>
-                                <a><i class="fa fa-bell-o"></i>Wake-up Service</a>
+                                <a href="{{url('getAllAlarm')}}" ><i class="fa fa-bell-o"></i>Wake-up Service</a>
                             </li>
-                            <li>
-                                <a><i class="fa fa-taxi"></i>Taxi Call Service</a>
-                            </li>
+
                         </ul>
                     </div>
 
